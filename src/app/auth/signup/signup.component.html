@@ -4,15 +4,39 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Your email" ngModel name="email" />
+        <input
+          matInput
+          type="email"
+          placeholder="Your email"
+          ngModel
+          name="email"
+          email
+          required
+          #emailInput="ngModel"
+        />
+        <mat-error *ngIf="emailInput.hasError('required')">Email required</mat-error>
+        <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" class="form-field" hintLabel="4 characters minimum.">
         <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Your password" ngModel name="password" />
+        <input
+          matInput
+          type="password" 
+          placeholder="Your password"
+          ngModel
+          name="password"
+          required
+          minlength="4"
+          #passwordInput="ngModel"
+        />
+        <mat-hint align="end">{{ passwordInput.value?.length }}/ {{ minPasswordLength }}</mat-hint>
+        <mat-error>Has to be at least {{ minPasswordLength }} characters.</mat-error>
       </mat-form-field>
-      <button type="submit" mat-raised-button color="primary">Submit</button>
+      <div class="d-flex flex-row-reverse">
+        <button type="submit" mat-raised-button color="primary" class="buttons">Submit</button>
+        <button type="submit" mat-raised-button class="cancel-margin-right buttons">Cancel</button>
+      </div>
     </form>
   </section>
 </div>
-
