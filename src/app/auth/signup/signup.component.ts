@@ -8,10 +8,14 @@ import { NgForm } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
   minPasswordLength = 4;
+  maxDate: Date;
 
   constructor() { }
 
   ngOnInit(): void {
+    // set latest date to be at least 18 years old.
+    this.maxDate = new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   onSubmit(form: NgForm) {
